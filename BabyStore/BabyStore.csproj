@@ -161,13 +161,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809231809086_InitialCreate.cs" />
-    <Compile Include="Migrations\201809231809086_InitialCreate.Designer.cs">
-      <DependentUpon>201809231809086_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201811011505183_InitialDatabase.cs" />
+    <Compile Include="Migrations\201811011505183_InitialDatabase.Designer.cs">
+      <DependentUpon>201811011505183_InitialDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809231828179_category.cs" />
-    <Compile Include="Migrations\201809231828179_category.Designer.cs">
-      <DependentUpon>201809231828179_category.cs</DependentUpon>
+    <Compile Include="Migrations\201811011547261_CategoryNameValidation.cs" />
+    <Compile Include="Migrations\201811011547261_CategoryNameValidation.Designer.cs">
+      <DependentUpon>201811011547261_CategoryNameValidation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -243,11 +243,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809231809086_InitialCreate.resx">
-      <DependentUpon>201809231809086_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811011505183_InitialDatabase.resx">
+      <DependentUpon>201811011505183_InitialDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809231828179_category.resx">
-      <DependentUpon>201809231828179_category.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811011547261_CategoryNameValidation.resx">
+      <DependentUpon>201811011547261_CategoryNameValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
