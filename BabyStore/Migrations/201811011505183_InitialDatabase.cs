@@ -3,7 +3,7 @@ namespace BabyStore.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class InitialDatabase : DbMigration
     {
         public override void Up()
         {
@@ -24,19 +24,18 @@ namespace BabyStore.Migrations
                         Name = c.String(),
                         Description = c.String(),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        CatagoryID = c.Int(),
-                        Category_ID = c.Int(),
+                        CategoryID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Categories", t => t.Category_ID)
-                .Index(t => t.Category_ID);
+                .ForeignKey("dbo.Categories", t => t.CategoryID)
+                .Index(t => t.CategoryID);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Products", "Category_ID", "dbo.Categories");
-            DropIndex("dbo.Products", new[] { "Category_ID" });
+            DropForeignKey("dbo.Products", "CategoryID", "dbo.Categories");
+            DropIndex("dbo.Products", new[] { "CategoryID" });
             DropTable("dbo.Products");
             DropTable("dbo.Categories");
         }
