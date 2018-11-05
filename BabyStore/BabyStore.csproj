@@ -185,6 +185,10 @@
     <Compile Include="Migrations\201811021411479_ProductImages.Designer.cs">
       <DependentUpon>201811021411479_ProductImages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811051223226_UniqueFileName.cs" />
+    <Compile Include="Migrations\201811051223226_UniqueFileName.Designer.cs">
+      <DependentUpon>201811051223226_UniqueFileName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
@@ -243,7 +247,7 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\ProductImages\Create.cshtml" />
+    <Content Include="Views\ProductImages\Upload.cshtml" />
     <Content Include="Views\ProductImages\Delete.cshtml" />
     <Content Include="Views\ProductImages\Details.cshtml" />
     <Content Include="Views\ProductImages\Edit.cshtml" />
@@ -251,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ProductImages\Thumbnails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -277,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811021411479_ProductImages.resx">
       <DependentUpon>201811021411479_ProductImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811051223226_UniqueFileName.resx">
+      <DependentUpon>201811051223226_UniqueFileName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

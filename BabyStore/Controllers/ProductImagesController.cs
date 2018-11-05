@@ -5,10 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using BabyStore.DAL;
 using BabyStore.Models;
+using System.Web.Helpers;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace BabyStore.Controllers
 {
@@ -38,7 +40,7 @@ namespace BabyStore.Controllers
         }
 
         // GET: ProductImages/Create
-        public ActionResult Create()
+        public ActionResult Upload()
         {
             return View();
         }
@@ -48,16 +50,70 @@ namespace BabyStore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FileName")] ProductImage productImage)
+        public ActionResult Upload(HttpPostedFileBase[] files)
         {
+            bool allValid = true;
+            string inValidFile = "";
+
+            if (files[0] != null)
+            {
+                foreach(var file in files)
+                {
+                    if()
+                }
+
+                if(files.Length <=10)
+                {
+                    if (ValidateFile(file))
+                    {
+                        try
+                        {
+                            SaveFileToDisk(file);
+                        }
+                        catch (Exception)
+                        {
+                            ModelState.AddModelError("FileName", "Sorry an error occured saving the file to disk, please try again");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("FileName", "The file must be a gif, png, jpeg or jpg and less than 2mb in size");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("FileName", "Please only upload 10 files at a time");
+                }
+            }
+            else{
+                ModelState.AddModelError("FileName", "Please choose a file");
+            }
+
             if (ModelState.IsValid)
             {
-                db.ProductImages.Add(productImage);
-                db.SaveChanges();
+                db.ProductImages.Add(new ProductImage { FileName= file.FileName});
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(DbUpdateException ex)
+                {
+                    SqlException innerException = ex.InnerException.InnerException as SqlException;
+                    if(innerException != null && innerException.Number == 2601)
+                    {
+                        ModelState.AddModelError("FileName", "The File " + file.FileName + " already exists in the system. Please delete it and try again if you wish to re-add it");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("FileName", "Sorry an error occured saving to the database, please try again.");
+                    }
+                    return View();
+                }
                 return RedirectToAction("Index");
             }
 
-            return View(productImage);
+            return View();
         }
 
         // GET: ProductImages/Edit/5
@@ -137,10 +193,10 @@ namespace BabyStore.Controllers
             return false;
         }
 
-        public void SaveFileToDisk(HttpPostedFileBase file)
+        private void SaveFileToDisk(HttpPostedFileBase file)
         {
             WebImage img = new WebImage(file.InputStream);
-            if(img.Width > 190)
+            if (img.Width > 190)
             {
                 img.Resize(190, img.Height);
             }
@@ -149,7 +205,7 @@ namespace BabyStore.Controllers
             {
                 img.Resize(100, img.Height);
             }
-            img.Save(Constants.ProductImagePath + file.FileName);
+            img.Save(Constants.ProductThumbnailPath + file.FileName);
         }
     }
 }
